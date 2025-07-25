@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practices Works</title>
+    <link rel="stylesheet" href="index.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"
+    ></script>
+  </head>
+  <body>
+    <div class="app">
+      <!-- Loading Screen -->
+      <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+          <div class="spinner"></div>
+          <h2>Loading AI Models...</h2>
+          <p>This may take a few moments</p>
+        </div>
+      </div>
+
+      <!-- Error Screen -->
+      <div id="error-screen" class="error-screen hidden">
+        <div class="error-content">
+          <div class="error-icon">⚠️</div>
+          <h2>Failed to Load AI Models</h2>
+          <p id="error-message">Please refresh the page and try again.</p>
+          <button onclick="location.reload()" class="refresh-btn">
+            🔄 Refresh Page
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Application -->
+      <div id="main-app" class="main-app hidden">
+        <!-- Header -->
+        <header class="header">
+          <h1>"Face Expression Detector"</h1>
+        </header>
+
+        <div class="container">
+          <!-- Camera Section -->
+          <div class="camera-section">
+            <div class="card">
+              <div class="card-header">
+                <h2>Camera Feed</h2>
+                <div class="controls">
+                  <div id="face-status" class="face-status hidden">
+                    <div class="status-dot"></div>
+                    <span>Face Detected</span>
+                  </div>
+                  <button id="camera-btn" class="camera-btn" disabled>
+                    <span class="btn-icon">📷</span>
+                    <span class="btn-text">Start Camera</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="video-container">
+                <video id="video" autoplay muted playsinline></video>
+                <canvas id="canvas"></canvas>
+
+                <div id="camera-placeholder" class="camera-placeholder">
+                  <div class="placeholder-content">
+                    <div class="placeholder-icon">📷</div>
+                    <p id="placeholder-text">Camera is off</p>
+                  </div>
+                </div>
+
+                <div id="camera-error" class="camera-error hidden">
+                  <div class="error-content">
+                    <div class="error-icon">⚠️</div>
+                    <p id="camera-error-text">Camera access denied</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="status-bar">
+                <div class="status-item">
+                  <div id="ai-status" class="status-dot loading"></div>
+                  <span
+                    >Simple Face Models:
+                    <span id="ai-status-text">Loading</span></span
+                  >
+                </div>
+                <div class="status-item">
+                  <div id="detection-status" class="status-dot inactive"></div>
+                  <span
+                    >Detection:
+                    <span id="detection-status-text">Inactive</span></span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Analysis Section -->
+          <div class="analysis-section">
+            <!-- Current Emotion -->
+            <div class="card">
+              <h2>Current Emotion</h2>
+              <div id="current-emotion" class="current-emotion">
+                <div class="emotion-display">
+                  <div class="emotion-icon">🤖</div>
+                  <h3 class="emotion-name">No face detected</h3>
+                  <div class="confidence-bar">
+                    <div class="confidence-fill"></div>
+                  </div>
+                  <p class="confidence-text">0% confidence</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Emotion History -->
+            <div class="card">
+              <h2>Recent Emotions</h2>
+              <div id="emotion-history" class="emotion-history">
+                <p class="no-data">No emotions detected yet</p>
+              </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="card">
+              <h2>Statistics</h2>
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <div id="total-detections" class="stat-value">0</div>
+                  <div class="stat-label">Total Detections</div>
+                </div>
+                <div class="stat-item">
+                  <div id="current-accuracy" class="stat-value">0%</div>
+                  <div class="stat-label">Current Accuracy</div>
+                </div>
+              </div>
+              <div id="most-frequent" class="most-frequent hidden">
+                <div class="frequent-emotion">
+                  <div class="frequent-label">Most Frequent:</div>
+                  <div id="frequent-emotion-name" class="frequent-name">
+                    Happy
+                  </div>
+                </div>
+                <div class="frequent-subtitle">Based on recent activity</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
